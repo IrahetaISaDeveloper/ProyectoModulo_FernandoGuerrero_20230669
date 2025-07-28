@@ -20,6 +20,7 @@ public class ProveedorService {
     @Autowired
     ProveedorRepository repo;
 
+    //Metodo para obtener los proveedores de la base de datos en formato DTO
     public List<ProveedorDTO> obtenerProveedores(){
         List<ProveedorEntity> lista = repo.findAll();
         return lista.stream()
@@ -27,6 +28,7 @@ public class ProveedorService {
                 .collect(Collectors.toList());
     }
 
+    //Metodo para convertir los datos de entity provenientes de la base a formato DTO
     private ProveedorDTO convertirADTO(ProveedorEntity entity){
         ProveedorDTO dto = new ProveedorDTO();
         dto.setId(entity.getId());
@@ -40,6 +42,7 @@ public class ProveedorService {
         return dto;
     }
 
+    //Metodo para insertar los datos en la base de datos por medio del DTO verificando si no hay datos nulos y convirtiendolo a formato entity para poder ingresarlos en la base
     public ProveedorDTO insertarDatos (@Valid ProveedorDTO json){
         if (json == null || json.getProviderName() == null || json.getProviderName().isEmpty()){
             throw new IllegalArgumentException("Proveedor contiene nulos");
@@ -53,7 +56,7 @@ public class ProveedorService {
             throw new ExceptionProveedorNoRegistrado("Error al registrar");
         }
     }
-
+    //Metodo para convertir los datos DTO a formato Entity
     private ProveedorEntity convertirAEntity (@Valid ProveedorDTO json){
         ProveedorEntity entity = new ProveedorEntity();
         entity.setProviderName(json.getProviderName());
@@ -66,6 +69,7 @@ public class ProveedorService {
         return entity;
     }
 
+    //Metodo para actualizar el proveedor por medio del id
     public ProveedorDTO actualizarProveedor (Long id, @Valid ProveedorDTO json){
         ProveedorEntity proveedorExiste = repo.findById(id).orElseThrow( ()
                 -> new ExceptionProveedorNoEncontrado("Proveedor no encontrado"));

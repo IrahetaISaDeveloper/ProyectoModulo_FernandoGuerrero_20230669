@@ -23,11 +23,13 @@ public class ProveedorController {
     @Autowired
     ProveedorService service;
 
+    //Endpoint para obtener todos los datos de la base
     @GetMapping("/consultarDatos")
     public List<ProveedorDTO> obtenerDatos(){
         return service.obtenerProveedores();
     }
 
+    //Endpoint para registrar los datos provenientes del service
     @PostMapping("/registrarDatos")
     public ResponseEntity<?> nuevoProveedor (@Valid @RequestBody ProveedorDTO json, HttpServletRequest request){
         try{
@@ -54,7 +56,7 @@ public class ProveedorController {
         }
     }
 
-
+    //Metodo para actulizar los datos del proveedor por medio del id
     @PutMapping("/editarProveedor/{id}")
     public ResponseEntity<?> modificarProveedor(
             @PathVariable Long id,
