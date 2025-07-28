@@ -25,7 +25,7 @@ public class ProveedorController {
     @GetMapping("/consultarDatos")
     public ResponseEntity<?> nuevoProveedor (@Valid @RequestBody ProveedorDTO json, HttpServletRequest request){
         try{
-            ProveedorDTO respuesta = service.InsertarDatos(json);
+            ProveedorDTO respuesta = service.insertarDatos(json);
             if (respuesta == null){
                 return ResponseEntity.badRequest().body(Map.of(
                    "Status", "Insercion Fallida",
@@ -61,7 +61,7 @@ public class ProveedorController {
             return ResponseEntity.badRequest().body(errores);
         }
         try {
-            ProveedorDTO dto = new service.actualizarProveedor(id, json);
+            ProveedorDTO dto = new actualizarProveedor(id, json);
             return ResponseEntity.ok(dto);
         }catch (ExceptionProveedorNoEncontrado e){
             return ResponseEntity.notFound().build();
@@ -72,6 +72,4 @@ public class ProveedorController {
             ));
         }
     }
-
-
 }
