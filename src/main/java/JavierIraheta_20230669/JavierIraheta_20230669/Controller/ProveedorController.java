@@ -1,5 +1,7 @@
 package JavierIraheta_20230669.JavierIraheta_20230669.Controller;
 
+import JavierIraheta_20230669.JavierIraheta_20230669.Exceptions.ExceptionProveedorDuplicado;
+import JavierIraheta_20230669.JavierIraheta_20230669.Exceptions.ExceptionProveedorNoEncontrado;
 import JavierIraheta_20230669.JavierIraheta_20230669.Models.DTO.ProveedorDTO;
 import JavierIraheta_20230669.JavierIraheta_20230669.Service.ProveedorService;
 import jakarta.servlet.http.HttpServlet;
@@ -60,6 +62,14 @@ public class ProveedorController {
         }
         try {
             ProveedorDTO dto = new service.actualizarProveedor(id, json);
+            return ResponseEntity.ok(dto);
+        }catch (ExceptionProveedorNoEncontrado e){
+            return ResponseEntity.notFound().build();
+        }catch (ExceptionProveedorDuplicado e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+                    "Error", "Datos Duplicados",
+                    "Campo", e.getCampoDuplicado()
+            ));
         }
     }
 
