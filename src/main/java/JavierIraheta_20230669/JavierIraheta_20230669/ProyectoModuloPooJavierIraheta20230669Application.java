@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProyectoModuloPooJavierIraheta20230669Application {
 
 	public static void main(String[] args) {
+		//Carga variables del .env al sistema
 		Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 		dotenv.entries().forEach( entry ->
 						System.setProperty(entry.getKey(),entry.getValue())

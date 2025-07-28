@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +24,11 @@ public class ProveedorController {
     ProveedorService service;
 
     @GetMapping("/consultarDatos")
+    public List<ProveedorDTO> obtenerDatos(){
+        return service.obtenerProveedores();
+    }
+
+    @PostMapping("/registrarDatos")
     public ResponseEntity<?> nuevoProveedor (@Valid @RequestBody ProveedorDTO json, HttpServletRequest request){
         try{
             ProveedorDTO respuesta = service.insertarDatos(json);
@@ -48,6 +54,7 @@ public class ProveedorController {
         }
     }
 
+
     @PutMapping("/editarProveedor/{id}")
     public ResponseEntity<?> modificarProveedor(
             @PathVariable Long id,
@@ -61,7 +68,7 @@ public class ProveedorController {
             return ResponseEntity.badRequest().body(errores);
         }
         try {
-            ProveedorDTO dto = new actualizarProveedor(id, json);
+            ProveedorDTO dto = service.actualizarProveedor(id, json);
             return ResponseEntity.ok(dto);
         }catch (ExceptionProveedorNoEncontrado e){
             return ResponseEntity.notFound().build();
@@ -72,4 +79,6 @@ public class ProveedorController {
             ));
         }
     }
+
+
 }

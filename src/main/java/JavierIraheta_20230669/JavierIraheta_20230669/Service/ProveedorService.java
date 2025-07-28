@@ -66,9 +66,8 @@ public class ProveedorService {
         return entity;
     }
 
-    /*
     public ProveedorDTO actualizarProveedor (Long id, @Valid ProveedorDTO json){
-        ProveedorEntity proveedorExiste = repo.findById(id).orElseThrow(()
+        ProveedorEntity proveedorExiste = repo.findById(id).orElseThrow( ()
                 -> new ExceptionProveedorNoEncontrado("Proveedor no encontrado"));
 
                 proveedorExiste.setProviderName(json.getProviderName());
@@ -78,11 +77,10 @@ public class ProveedorService {
                 proveedorExiste.setProviderCode(json.getProviderCode());
                 proveedorExiste.setProviderStatus(json.getProviderStatus());
                 proveedorExiste.setProviderComments(json.getProviderComments());
-        )
 
         ProveedorEntity proveedorActualizado = repo.save(proveedorExiste);
         return convertirADTO(proveedorActualizado);
-    }*/
+    }
 }
 
 
